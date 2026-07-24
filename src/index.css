@@ -1,15 +1,48 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   Theme tokens. Values are set per color-scheme below and
+   consumed as Tailwind color utilities via @theme.
+   ============================================================ */
+:root {
+  --iudpr-bg: #fafafa;
+  --iudpr-surface: #ffffff;
+  --iudpr-fg: #0a0a0a;
+  --iudpr-muted: #6b7280;
+  --iudpr-ink: #0a0a0a;
+  --iudpr-ink-fg: #fafafa;
+  --iudpr-accent: #4f46e5;
+  --iudpr-accent-solid: #4f46e5;
+  --iudpr-accent-solid-dark: #3730a3;
+  color-scheme: light;
+}
+
+.dark {
+  --iudpr-bg: #0a0a0a;
+  --iudpr-surface: #161618;
+  --iudpr-fg: #fafafa;
+  --iudpr-muted: #9ca3af;
+  --iudpr-ink: #18181b;
+  --iudpr-ink-fg: #fafafa;
+  --iudpr-accent: #818cf8;
+  color-scheme: dark;
+}
 
 @theme {
-  --font-sans: "Inter", sans-serif;
-  --font-display: "Fraunces", serif;
+  --font-sans: "Urbanist", sans-serif;
+  --font-display: "Inter", sans-serif;
 
-  --color-iudpr-terracotta: #b5502f;
-  --color-iudpr-terracotta-dark: #9c4327;
-  --color-iudpr-slate: #2b3238;
-  --color-iudpr-sage: #6b7f5e;
-  --color-iudpr-cream: #f6f1ea;
-  --color-iudpr-muted: #7a7570;
+  --color-iudpr-bg: var(--iudpr-bg);
+  --color-iudpr-surface: var(--iudpr-surface);
+  --color-iudpr-fg: var(--iudpr-fg);
+  --color-iudpr-muted: var(--iudpr-muted);
+  --color-iudpr-ink: var(--iudpr-ink);
+  --color-iudpr-ink-fg: var(--iudpr-ink-fg);
+  --color-iudpr-accent: var(--iudpr-accent);
+  --color-iudpr-accent-solid: var(--iudpr-accent-solid);
+  --color-iudpr-accent-solid-dark: var(--iudpr-accent-solid-dark);
 }
 
 @layer base {
@@ -24,11 +57,14 @@
   body {
     margin: 0;
     font-family: var(--font-sans);
-    background: var(--color-iudpr-cream);
-    color: var(--color-iudpr-slate);
+    background: var(--iudpr-bg);
+    color: var(--iudpr-fg);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 }
 
@@ -73,6 +109,34 @@
   }
 }
 
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-modal-in {
+  animation: modal-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
 @keyframes ring-pulse {
   0%,
   100% {
@@ -93,9 +157,37 @@
   animation: ring-pulse 6s ease-in-out infinite;
 }
 
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-orbit {
+  animation: orbit 16s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbit-reverse 11s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-drift,
-  .animate-ring-pulse {
+  .animate-ring-pulse,
+  .animate-orbit,
+  .animate-orbit-reverse {
     animation: none;
   }
 }

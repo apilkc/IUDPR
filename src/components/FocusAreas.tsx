@@ -32,11 +32,11 @@ function FocusCard({
       className={`reveal ${isVisible ? "is-visible" : ""}`}
       style={{ transitionDelay: isVisible ? `${index * 80}ms` : "0ms" }}
     >
-      <div className="bg-white rounded-2xl p-6 border border-iudpr-slate/10 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-iudpr-terracotta/40">
-        <div className="w-11 h-11 rounded-full bg-iudpr-terracotta/10 flex items-center justify-center mb-4">
-          <Icon className="w-5 h-5 text-iudpr-terracotta" />
+      <div className="bg-iudpr-surface rounded-2xl p-8 border border-iudpr-fg/10 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-iudpr-accent/40">
+        <div className="w-11 h-11 rounded-full bg-iudpr-accent/10 flex items-center justify-center mb-4">
+          <Icon className="w-5 h-5 text-iudpr-accent" />
         </div>
-        <h3 className="font-display text-lg font-semibold text-iudpr-slate mb-2">
+        <h3 className="font-display text-lg font-bold text-iudpr-fg mb-2">
           {title}
         </h3>
         <p className="text-sm text-iudpr-muted leading-relaxed">
@@ -49,21 +49,25 @@ function FocusCard({
 
 export function FocusAreas() {
   return (
-    <section id="focus-areas" className="py-24 px-6 bg-white/40">
+    <section id="focus-areas" className="py-28 px-6 bg-iudpr-surface/40">
       <div className="max-w-[1280px] mx-auto">
-        <div className="text-center max-w-[640px] mx-auto mb-14">
-          <span className="text-iudpr-terracotta text-sm font-semibold uppercase tracking-[0.2em]">
-            {siteContent.focusAreas.eyebrow}
-          </span>
-          <h2 className="font-display text-4xl font-semibold text-iudpr-slate mt-3 mb-4">
-            {siteContent.focusAreas.heading}
-          </h2>
-          <p className="text-iudpr-muted leading-relaxed">
+        <div className="max-w-[720px] mx-auto mb-14">
+          <p className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.1]">
+            <span className="text-iudpr-muted">
+              {siteContent.focusAreas.statementLead}
+            </span>
+            <br />
+            <span className="text-iudpr-fg">
+              {siteContent.focusAreas.statementMain}
+              <span className="text-iudpr-accent">.</span>
+            </span>
+          </p>
+          <p className="text-iudpr-muted leading-relaxed mt-4">
             {siteContent.focusAreas.intro}
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {siteContent.focusAreas.items.map((item, index) => (
             <FocusCard
               key={item.title}

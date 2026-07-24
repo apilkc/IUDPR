@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { siteContent } from "@/content/site-content";
 
@@ -42,28 +43,28 @@ export function Hero() {
               <path
                 d="M0,40 Q100,0 200,40 T400,40"
                 fill="none"
-                stroke="#2B3238"
+                stroke="var(--iudpr-fg)"
                 strokeOpacity="0.06"
                 strokeWidth="1.5"
               />
               <path
                 d="M0,120 Q100,80 200,120 T400,120"
                 fill="none"
-                stroke="#2B3238"
+                stroke="var(--iudpr-fg)"
                 strokeOpacity="0.05"
                 strokeWidth="1.5"
               />
               <path
                 d="M0,200 Q100,160 200,200 T400,200"
                 fill="none"
-                stroke="#2B3238"
+                stroke="var(--iudpr-fg)"
                 strokeOpacity="0.06"
                 strokeWidth="1.5"
               />
               <path
                 d="M0,270 Q100,240 200,270 T400,270"
                 fill="none"
-                stroke="#2B3238"
+                stroke="var(--iudpr-fg)"
                 strokeOpacity="0.04"
                 strokeWidth="1.5"
               />
@@ -83,7 +84,7 @@ export function Hero() {
         <path
           d={SKYLINE_PATH}
           fill="none"
-          stroke="#B5502F"
+          stroke="var(--iudpr-accent)"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -100,33 +101,30 @@ export function Hero() {
         className="absolute inset-x-0 top-0 h-[500px] pointer-events-none z-[1]"
         style={{
           background:
-            "linear-gradient(180deg, rgba(246,241,234,1) 0%, rgba(246,241,234,0) 100%)",
+            "linear-gradient(180deg, var(--iudpr-bg) 0%, transparent 100%)",
         }}
       />
 
       <div className="relative z-[2] flex-1 flex flex-col items-center justify-center px-6 pt-28 pb-24 text-center max-w-[1280px] mx-auto">
-        <span className="text-iudpr-terracotta text-sm font-semibold uppercase tracking-[0.2em] mb-5">
-          {siteContent.hero.eyebrow}
-        </span>
-        <h1 className="font-display text-[clamp(36px,6vw,64px)] font-semibold text-iudpr-slate leading-[1.1] max-w-[820px]">
+        <h1 className="font-display text-[clamp(36px,6vw,64px)] font-black text-iudpr-fg leading-[1.05] max-w-[820px]">
           {siteContent.hero.headline}
         </h1>
-        <p className="text-lg text-iudpr-muted max-w-[560px] mt-6 leading-relaxed">
+        <p className="text-base sm:text-lg text-iudpr-muted max-w-[680px] mt-6 leading-relaxed">
           {siteContent.hero.subhead}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 mt-10">
-          <a
-            href="#contact"
-            className="bg-iudpr-terracotta text-white px-6 py-3.5 rounded-full text-sm font-medium uppercase tracking-wide hover:bg-iudpr-terracotta-dark active:scale-95 transition-all"
+          <Link
+            to="/#contact"
+            className="bg-iudpr-accent-solid text-white px-6 py-3.5 rounded-full text-sm font-medium uppercase tracking-wide hover:bg-iudpr-accent-solid-dark active:scale-95 transition-all"
           >
             {siteContent.hero.primaryCta}
-          </a>
-          <a
-            href="#focus-areas"
-            className="border border-iudpr-slate/30 text-iudpr-slate px-6 py-3.5 rounded-full text-sm font-medium uppercase tracking-wide hover:border-iudpr-slate active:scale-95 transition-all"
+          </Link>
+          <Link
+            to="/projects"
+            className="border border-iudpr-fg/30 text-iudpr-fg px-6 py-3.5 rounded-full text-sm font-medium uppercase tracking-wide hover:border-iudpr-fg active:scale-95 transition-all"
           >
             {siteContent.hero.secondaryCta}
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -136,7 +134,7 @@ export function Hero() {
         }`}
         aria-hidden
       >
-        <ChevronDown className="w-6 h-6 text-iudpr-slate/50 animate-bounce" />
+        <ChevronDown className="w-6 h-6 text-iudpr-fg/50 animate-bounce" />
       </div>
     </section>
   );

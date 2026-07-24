@@ -1,6 +1,6 @@
 # IUDPR Website
 
-The public website for the **Institute for Urban Development and Policy Research (IUDPR)** — a Nepal-based non-profit research institute.
+The public website for the **Institute for Urban Development and Policy Research (IUDPR)**, a Nepal-based non-profit research institute.
 
 Built with React, TypeScript, Vite, and Tailwind CSS.
 

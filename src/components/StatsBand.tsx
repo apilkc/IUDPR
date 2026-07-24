@@ -18,11 +18,11 @@ function StatItem({
   const count = useCountUp(value, active);
   return (
     <div className="text-center">
-      <div className="font-display text-4xl md:text-5xl text-iudpr-terracotta">
+      <div className="font-display text-4xl md:text-5xl font-black text-iudpr-accent">
         {formatAsYear ? count : count.toLocaleString()}
         {suffix}
       </div>
-      <div className="text-sm uppercase tracking-wide text-iudpr-cream/70 mt-2">
+      <div className="text-sm uppercase tracking-wide text-iudpr-ink-fg/70 mt-2">
         {label}
       </div>
     </div>
@@ -33,7 +33,7 @@ export function StatsBand() {
   const { ref, isVisible } = useReveal<HTMLDivElement>();
 
   return (
-    <section className="bg-iudpr-slate text-iudpr-cream py-16">
+    <section className="bg-iudpr-ink text-iudpr-ink-fg py-16">
       <div
         ref={ref}
         className="max-w-[1280px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10"

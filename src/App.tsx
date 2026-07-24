@@ -1,26 +1,24 @@
-import { Nav } from "@/components/Nav";
-import { Hero } from "@/components/Hero";
-import { StatsBand } from "@/components/StatsBand";
-import { About } from "@/components/About";
-import { FocusAreas } from "@/components/FocusAreas";
-import { Approach } from "@/components/Approach";
-import { Leadership } from "@/components/Leadership";
-import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "@/components/Layout";
+import { Home } from "@/pages/Home";
+import { ProjectsList } from "@/pages/ProjectsList";
+import { ProjectDetail } from "@/pages/ProjectDetail";
+import { TeamPage } from "@/pages/TeamPage";
+import { BlogList } from "@/pages/BlogList";
+import { BlogPost } from "@/pages/BlogPost";
 
 function App() {
   return (
-    <div className="min-h-screen">
-      <Nav />
-      <Hero />
-      <StatsBand />
-      <About />
-      <FocusAreas />
-      <Approach />
-      <Leadership />
-      <Contact />
-      <Footer />
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="projects" element={<ProjectsList />} />
+        <Route path="projects/:slug" element={<ProjectDetail />} />
+        <Route path="team" element={<TeamPage />} />
+        <Route path="blog" element={<BlogList />} />
+        <Route path="blog/:slug" element={<BlogPost />} />
+      </Route>
+    </Routes>
   );
 }
 
