@@ -4,6 +4,7 @@ import { Menu, X, Sun, Moon, Search } from "lucide-react";
 import { siteContent } from "@/content/site-content";
 import { useTheme } from "@/hooks/useTheme";
 import { SearchModal } from "@/components/SearchModal";
+import { LogoMark } from "@/components/LogoMark";
 
 function toPath(href: string): string {
   return href.startsWith("#") ? `/${href}` : href;
@@ -61,13 +62,16 @@ export function Nav() {
       }`}
     >
       <div className="max-w-[1280px] mx-auto flex items-center justify-between px-6 md:px-10 py-4">
-        <Link to="/" className="flex flex-col leading-none select-none">
-          <span className="font-display text-2xl font-extrabold tracking-tight text-iudpr-fg">
-            IUDPR
-          </span>
-          <span className="hidden xl:block whitespace-nowrap text-[10px] uppercase tracking-[0.15em] text-iudpr-muted mt-0.5">
-            Institute for Urban Development &amp; Policy Research
-          </span>
+        <Link to="/" className="flex items-center gap-3 leading-none select-none">
+          <LogoMark className="w-9 h-9 shrink-0" />
+          <div className="flex flex-col leading-none">
+            <span className="font-display text-2xl font-extrabold tracking-tight text-iudpr-fg">
+              IUDPR
+            </span>
+            <span className="hidden xl:block whitespace-nowrap text-[10px] uppercase tracking-[0.15em] text-iudpr-muted mt-0.5">
+              Institute for Urban Development &amp; Policy Research
+            </span>
+          </div>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

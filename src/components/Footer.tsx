@@ -2,6 +2,7 @@ import type { SVGProps } from "react";
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { siteContent } from "@/content/site-content";
+import { LogoMark } from "@/components/LogoMark";
 
 function toPath(href: string): string {
   return href.startsWith("#") ? `/${href}` : href;
@@ -52,9 +53,16 @@ export function Footer() {
     <footer className="bg-iudpr-ink text-iudpr-ink-fg/70 text-sm py-10 px-6">
       <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
-          <span className="font-display text-xl font-extrabold tracking-tight text-iudpr-ink-fg">
-            IUDPR
-          </span>
+          <div className="flex items-center justify-center md:justify-start gap-3">
+            <LogoMark
+              className="w-8 h-8 shrink-0"
+              squareColor="var(--iudpr-ink-fg)"
+              lineColor="var(--iudpr-ink)"
+            />
+            <span className="font-display text-xl font-extrabold tracking-tight text-iudpr-ink-fg">
+              IUDPR
+            </span>
+          </div>
           <p className="mt-1 text-xs uppercase tracking-wide text-iudpr-ink-fg/50">
             Institute for Urban Development &amp; Policy Research
           </p>
