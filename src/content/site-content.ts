@@ -1,11 +1,12 @@
 // ============================================================================
 // EDIT THIS FILE TO UPDATE WEBSITE TEXT.
 // This is the ONLY file you need to touch to change most words on the site:
-// headlines, descriptions, stats, team bios, testimonials, contact info.
+// headlines, descriptions, stats, testimonials, contact info.
 // Do not edit files in src/components/ unless you're a developer.
 //
-// Projects and blog posts are NOT edited here. See src/content/projects/
-// and src/content/blog/ instead, and read README-EDITING.md.
+// Team members, projects, and blog posts are NOT edited here — each is its
+// own file: src/content/team/, src/content/projects/, src/content/blog/.
+// Read README-EDITING.md for how to add or edit those.
 //
 // Just change the text between the quotes ("...") and save. Don't remove
 // commas, curly braces {}, or square brackets [].
@@ -191,173 +192,13 @@ export const siteContent = {
     ],
   },
 
-  // One flat list, same card treatment for everyone. Entries starting with
-  // "Add ... Name" are placeholder slots, obvious to fill in or delete.
-  // photoSeed picks a sample placeholder photo (1-70); linkedin/twitter are
-  // dummy links until real profiles are ready.
+  // Individual team members are NOT edited here. Each person is their own
+  // file in src/content/team/board-and-advisors/ or
+  // src/content/team/research-and-admin-team/. See README-EDITING.md.
   team: {
     eyebrow: "Who we are",
     heading: "Our Team",
     intro: "A small, hands-on team spanning Nepal and the United States.",
-    people: [
-      {
-        photoSeed: 12,
-        initials: "US",
-        name: "Upendra Sapkota",
-        credentials: "PP, LEED AP, AICP",
-        role: "Chair, Board of Directors",
-        brief:
-          "Urban planner leading trail and active-transportation projects across North Jersey. Former Director of Planning, Zoning and Sustainability for the City of Newark.",
-        bio: "Urban planner leading trail-network and active-transportation initiatives across North Jersey as NJ Project Director for Rails to Trails Conservancy. Previously Director of Newark's Office of Planning, Zoning & Sustainability. M.U.R.P., Ball State University; B.Arch., Tribhuvan University (IOE).",
-        linkedin: "https://linkedin.com/in/upendra-sapkota",
-        twitter: "https://twitter.com/upendrasapkota",
-      },
-      {
-        photoSeed: 33,
-        initials: "AK",
-        name: "Apil KC",
-        credentials: "",
-        role: "Director, Board of Directors",
-        brief:
-          "Architect and urban planner researching disaster risk reduction and climate adaptation. PhD candidate in Urban Planning at the University of Michigan.",
-        bio: "Architect and urban planner researching disaster risk reduction, climate adaptation, and community resilience. PhD candidate in Urban, Community & Regional Planning at the University of Michigan. Over a decade in Nepal, including Principal Architect at Urban Park Pvt. Ltd. and consultant on the World Bank-funded Urban Governance and Infrastructure Improvement Project. Secretary General, Society of Nepalese Architects.",
-        linkedin: "https://linkedin.com/in/apilkc",
-        twitter: "https://twitter.com/apilkc",
-      },
-      {
-        photoSeed: 47,
-        initials: "PD",
-        name: "Priti Dawadi",
-        credentials: "",
-        role: "Director, Board of Directors",
-        brief:
-          "Architectural designer focused on sustainable, community-centered design, with experience spanning earthquake recovery work in Nepal and practice in the US.",
-        bio: "Architectural designer working across conceptual design, construction documentation, and mixed-use development, with experience spanning earthquake-recovery work in Nepal and practice in the US. M.S. Infrastructure Planning, NJIT; B.Arch., Tribhuvan University (IOE). Focused on sustainable, community-centered design.",
-        linkedin: "https://linkedin.com/in/priti-dawadi",
-        twitter: "https://twitter.com/pritidawadi",
-      },
-      {
-        photoSeed: 5,
-        initials: "D1",
-        name: "Add Director Name",
-        credentials: "",
-        role: "Director, Board of Directors",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 8,
-        initials: "D2",
-        name: "Add Director Name Two",
-        credentials: "",
-        role: "Director, Board of Directors",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 21,
-        initials: "P1",
-        name: "Add Patron Name",
-        credentials: "",
-        role: "Patron",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 24,
-        initials: "P2",
-        name: "Add Patron Name Two",
-        credentials: "",
-        role: "Advisor",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 29,
-        initials: "P3",
-        name: "Add Patron Name Three",
-        credentials: "",
-        role: "Advisor",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 36,
-        initials: "R1",
-        name: "Add Researcher Name",
-        credentials: "",
-        role: "Research Associate",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 41,
-        initials: "R2",
-        name: "Add Researcher Name Two",
-        credentials: "",
-        role: "Research Associate",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 45,
-        initials: "PO",
-        name: "Add Program Officer Name",
-        credentials: "",
-        role: "Program Officer",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 50,
-        initials: "OM",
-        name: "Add Office Manager Name",
-        credentials: "",
-        role: "Office Manager",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 54,
-        initials: "RA",
-        name: "Add Research Assistant Name",
-        credentials: "",
-        role: "Research Assistant",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-      {
-        photoSeed: 60,
-        initials: "CO",
-        name: "Add Communications Name",
-        credentials: "",
-        role: "Communications Officer",
-        brief: "Add a short, roughly twenty-word summary of this person's role and background here.",
-        bio: "Add a longer biography here for the read-more popup.",
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-      },
-    ],
   },
 
   contact: {

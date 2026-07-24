@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Clock } from "lucide-react";
-import { projects, readingTime, type ProjectFrontmatter } from "@/lib/content";
+import { projects, readingTime, thumbnailUrl, type ProjectFrontmatter } from "@/lib/content";
 import type { ContentEntry } from "@/lib/content";
 import { useReveal } from "@/hooks/useReveal";
 import { useTagFilter } from "@/hooks/useTagFilter";
@@ -38,7 +38,7 @@ function ProjectCard({
       >
         <div className="relative aspect-[4/3] overflow-hidden">
           <img
-            src={`https://picsum.photos/seed/${project.slug}/700/525`}
+            src={thumbnailUrl("projects", project.slug, project.frontmatter.image)}
             alt=""
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"

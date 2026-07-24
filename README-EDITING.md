@@ -2,10 +2,23 @@
 
 This guide is for anyone on the IUDPR team who needs to update content on the website but isn't a developer.
 
-There are two kinds of content on this site, edited in two different places:
+## How content is organized
 
-1. **Page text** (headlines, stats, team bios, testimonials, contact info, social links): edited in one file, `src/content/site-content.ts`.
-2. **Projects and blog posts**: each one is its own Markdown file in `src/content/projects/` or `src/content/blog/`.
+Everything you'd normally want to edit lives in `src/content/`, laid out like folders of documents:
+
+```
+src/content/
+  site-content.ts        ← headlines, stats, testimonials, contact info
+  team/
+    board-and-advisors/      ← one .md file per board member, patron, or advisor
+    research-and-admin-team/ ← one .md file per staff member
+  projects/               ← one .md file per project
+  blog/                   ← one .md file per blog post
+```
+
+Three of these — team, projects, blog — work exactly the same way: **one person or post = one file.** To add someone or something new, add a file. To remove them, delete the file. Nothing else to touch.
+
+The only content edited in a single shared file is page-wide text (headline, stats, testimonials, contact details) — that's `src/content/site-content.ts`.
 
 ## 1. Editing page text
 
@@ -44,30 +57,38 @@ social: {
 
 These are currently placeholder links. Replace each with your real profile URL.
 
-To add, remove, or edit a team member, find the `team` section. It has three lists:
+The `team` section here only holds the small intro text above the team grid (`eyebrow`, `heading`, `intro`). Individual people are edited elsewhere — see the next section. The same copy-a-block pattern used for people also works for `testimonials.items` if you want to add another quote.
 
-- `team.board` — the Board of Directors. Each person is a full block with a bio, like:
+## 2. Adding or editing a team member
 
-  ```ts
-  {
-    initials: "PD",
-    name: "Priti Dawadi",
-    credentials: "",
-    boardRole: "Director",
-    title: "Architectural Designer, The Dietz Partnership",
-    bio: "...",
-  },
-  ```
+Each person on the "Our Team" page is their own file:
 
-- `team.patrons` — Patrons & Advisors, and `team.staff` — Research & Office Team. These are simpler, just a name and title:
+- Board members, patrons, and advisors → `src/content/team/board-and-advisors/`
+- Research and admin staff → `src/content/team/research-and-admin-team/`
 
-  ```ts
-  { initials: "R1", name: "Add Researcher Name", title: "Research Associate" },
-  ```
+To add someone new, create a file in the right folder, for example `src/content/team/research-and-admin-team/07-jane-doe.md`. The leading number controls the display order (people are shown in file order within their folder) — pick the next unused number. Use this frontmatter format:
 
-Copy an existing block (including the `{` and `},`) to add a new person, or delete one entirely to remove them. Entries starting with "Add ..." are placeholders, replace the name and title and they'll show up normally. The same copy-a-block pattern works for `testimonials.items`.
+```md
+---
+name: Jane Doe
+credentials: MURP
+role: Research Associate
+linkedin: https://linkedin.com/in/janedoe
+twitter: https://twitter.com/janedoe
+brief: A short, roughly twenty-word summary shown on their card.
+---
 
-## 2. Adding or editing a project
+The longer biography shown in the "Read more" popup goes here, as plain text or a paragraph or two of Markdown.
+```
+
+- `credentials` can be left out entirely if the person doesn't have any (see `apil-kc.md` for an example).
+- `linkedin` / `twitter` are optional too — leave placeholder `https://linkedin.com` / `https://twitter.com` links if you don't have real profiles yet.
+- To remove someone, delete their file. To re-order people, rename the files with different leading numbers.
+- To move someone between groups (e.g. a researcher joins the board), just move their file into the other folder.
+
+For a photo, see "Adding real photos" below — until then, everyone gets an auto-assigned placeholder headshot.
+
+## 3. Adding or editing a project
 
 Each project on the "Projects" section of the homepage is one Markdown file in `src/content/projects/`. To add a new project:
 
@@ -76,15 +97,29 @@ Each project on the "Projects" section of the homepage is one Markdown file in `
 3. Write the rest of the project write-up below the frontmatter using normal Markdown: headings with `##`, bold with `**text**`, links with `[text](url)`, and lists with `-`.
 4. Save and commit the file. The project appears on the homepage automatically.
 
-To edit an existing project, open its file and change the text. To remove a project, delete its file.
+To edit an existing project, open its file and change the text. To remove a project, delete its file. For a real thumbnail photo instead of the placeholder, see "Adding real photos" below.
 
-## 3. Adding or editing a blog post
+## 4. Adding or editing a blog post
 
 Same idea, in `src/content/blog/`. Open `src/content/blog/how-to-add-a-blog-post.md` for a short example, or copy `src/content/blog/welcome-to-iudpr.md` as a starting template.
 
-## Changing images
+## Adding real photos
 
-Photos and other images go in the `public/images/` folder. Add your image file there, then reference it in `site-content.ts` or a project or blog Markdown file (or ask a developer to wire it in). Leadership portraits and project tiles currently use placeholder icons instead of photos; ask a developer to swap these in when real photography is ready.
+Right now, nobody's photo or project thumbnail is a real uploaded image — they're all stand-in stock photos, auto-picked so each person/project consistently gets the same placeholder rather than a different random one every visit. That's why you won't find any photo files in the repo yet: **there aren't any, on purpose, until you add them.**
+
+To swap in a real photo:
+
+1. Add your image file to the matching folder in `public/images/`:
+   - Team headshots → `public/images/team/`
+   - Project thumbnails → `public/images/projects/`
+   - Blog thumbnails → `public/images/blog/`
+2. Reference just the filename (not the full path) in that entry's frontmatter:
+   - Team member: add a `photo: jane-doe.jpg` line
+   - Project: add an `image: my-photo.jpg` line
+   - Blog post: add an `image: my-photo.jpg` line
+3. Save and commit both the image file and the frontmatter change together.
+
+Leave the line out entirely and the placeholder keeps showing — no error, nothing breaks. Use reasonably-sized photos (roughly 700px wide is plenty; large multi-megabyte files will slow the site down).
 
 ## Previewing your changes before publishing
 
@@ -101,24 +136,16 @@ If you're editing directly on GitHub, you won't get a live preview, but the site
 
 ## How publishing works
 
-Every time changes are pushed to (or committed on) the `main` branch on GitHub, the site automatically rebuilds and redeploys. No manual steps needed. You can watch the progress under the "Actions" tab on GitHub.
+Every time changes are pushed to (or committed on) the `main` branch on GitHub, the site automatically rebuilds and redeploys to **iudpr.org**. No manual steps needed. You can watch the progress under the "Actions" tab on GitHub.
 
-## Connecting the Cloudflare domain
+## Domain setup (already done — reference only)
 
-You bought the domain through Cloudflare, so DNS is managed in the Cloudflare dashboard rather than at the registrar itself.
+The site is already connected to Cloudflare-managed DNS at `iudpr.org` / `www.iudpr.org`, GitHub Pages is enabled with HTTPS enforced, and `vite.config.ts`'s `PROD_BASE` is set to `/`. Nothing here needs to be redone. Keeping the steps for reference in case the domain or hosting ever needs to be rebuilt:
 
-1. In the GitHub repo, go to **Settings → Pages** and enter your custom domain (e.g. `www.iudpr.org.np` or your apex domain). This creates a `public/CNAME` file in the repo automatically. If it doesn't, add one yourself containing just the domain, one line, no other text.
-2. In the [Cloudflare dashboard](https://dash.cloudflare.com), select the domain, then go to **DNS → Records**, and add:
-   - For a `www` subdomain: a **CNAME** record, name `www`, target `<your-github-username>.github.io`.
-   - For the bare/apex domain (no `www`): Cloudflare supports a **CNAME** record directly at the root, target `<your-github-username>.github.io`. If you'd rather use `A` records, point them at GitHub's four Pages IP addresses, listed in [GitHub's custom domain docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
-3. **Important Cloudflare-specific step:** set the proxy status on that DNS record to **DNS only** (the cloud icon should be gray, not orange), at least until GitHub Pages finishes issuing its HTTPS certificate. GitHub needs to see the real server to verify the domain; Cloudflare's proxy can block that. You can switch it to "Proxied" (orange cloud) afterward if you want Cloudflare's CDN/caching, but if the site ever breaks after enabling it, switch back to DNS only.
-4. Back in GitHub's **Settings → Pages**, wait for the domain to show as verified and for "Enforce HTTPS" to become available, then enable it. This can take anywhere from a few minutes to a few hours after DNS propagates.
-5. **Also important:** open `vite.config.ts` and change `const PROD_BASE = '/IUDPR/'` to `const PROD_BASE = '/'`. Until a custom domain is connected, the site lives at `https://<username>.github.io/IUDPR/`, which needs that `/IUDPR/` base path. Once the custom domain takes over, the site is served from the domain root instead, so the base path must go back to `/`. Ask a developer if you're not sure how to make this change, it's a one-line edit.
-
-### How to publish once the domain is connected
-
-Publishing works the same way it always has: push (or commit on GitHub) to the `main` branch, and GitHub Actions automatically rebuilds and redeploys the live site within a couple of minutes. There's no separate "post" step, once DNS and `PROD_BASE` are set up as above, every commit to `main` goes live at your domain automatically.
+1. GitHub repo → **Settings → Pages** → custom domain set to `www.iudpr.org`, with `public/CNAME` in the repo containing that same domain.
+2. Cloudflare dashboard → the domain → **DNS → Records** → `CNAME` records for both `www` and the bare domain, target `<github-username>.github.io`, proxy status **DNS only** (gray cloud) until GitHub's certificate is issued.
+3. Back in GitHub Pages settings, once the domain verifies, **Enforce HTTPS** is enabled.
 
 ## Questions
 
-If something looks broken after an edit to `site-content.ts`, the most common cause is a missing comma or bracket. Undo your last change and try again, or ask a developer to take a look. Markdown files in `src/content/projects/` and `src/content/blog/` are more forgiving since they're just text with a small frontmatter header.
+If something looks broken after an edit to `site-content.ts`, the most common cause is a missing comma or bracket. Undo your last change and try again, or ask a developer to take a look. Markdown files in `src/content/team/`, `src/content/projects/`, and `src/content/blog/` are more forgiving since they're just text with a small frontmatter header.

@@ -2,18 +2,9 @@ import { useEffect, useState, type ReactNode, type SVGProps } from "react";
 import { X } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
 import { siteContent } from "@/content/site-content";
+import { avatarUrl, teamBoard, teamStaff, type TeamEntry } from "@/lib/content";
 
-type Person = (typeof siteContent.team.people)[number];
-
-// Board members, patrons, and advisors are grouped separately from the
-// day-to-day research and admin team, based on their role text.
-const EXTERNAL_ROLES = new Set([
-  "Chair, Board of Directors",
-  "Director, Board of Directors",
-  "Patron",
-  "Advisor",
-]);
-const isExternal = (person: Person) => EXTERNAL_ROLES.has(person.role);
+type Person = TeamEntry;
 
 function GroupHeading({ children }: { children: ReactNode }) {
   return (
@@ -42,10 +33,6 @@ function TwitterIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function avatarUrl(seed: number) {
-  return `https://i.pravatar.cc/240?img=${seed}`;
-}
-
 function PersonModal({ person, onClose }: { person: Person; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -69,7 +56,7 @@ function PersonModal({ person, onClose }: { person: Person; onClose: () => void 
       <div
         role="dialog"
         aria-modal="true"
-        aria-label={person.name}
+        aria-label={person.frontmatter.name}
         className="relative bg-iudpr-surface rounded-2xl max-w-lg w-full p-8 shadow-2xl animate-modal-in max-h-[85vh] overflow-y-auto"
       >
         <button
@@ -82,20 +69,20 @@ function PersonModal({ person, onClose }: { person: Person; onClose: () => void 
         </button>
 
         <img
-          src={avatarUrl(person.photoSeed)}
-          alt={person.name}
+          src={avatarUrl(person.slug, person.frontmatter.photo)}
+          alt={person.frontmatter.name}
           className="w-20 h-20 rounded-full object-cover ring-1 ring-iudpr-fg/10 mb-4"
         />
         <h3 className="font-display text-xl font-bold tracking-tight text-iudpr-fg">
-          {person.name}
+          {person.frontmatter.name}
         </h3>
-        {person.credentials && (
+        {person.frontmatter.credentials && (
           <p className="text-xs text-iudpr-muted uppercase tracking-wide mt-0.5">
-            {person.credentials}
+            {person.frontmatter.credentials}
           </p>
         )}
         <p className="text-sm text-iudpr-accent font-semibold mt-1">
-          {person.role}
+          {person.frontmatter.role}
         </p>
         <p className="text-sm leading-relaxed text-iudpr-fg/80 mt-4">
           {person.bio}
@@ -103,19 +90,19 @@ function PersonModal({ person, onClose }: { person: Person; onClose: () => void 
 
         <div className="flex items-center gap-3 mt-6">
           <a
-            href={person.linkedin}
+            href={person.frontmatter.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${person.name} on LinkedIn`}
+            aria-label={`${person.frontmatter.name} on LinkedIn`}
             className="text-iudpr-muted hover:text-iudpr-accent transition-colors"
           >
             <LinkedinIcon className="w-5 h-5" />
           </a>
           <a
-            href={person.twitter}
+            href={person.frontmatter.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${person.name} on Twitter`}
+            aria-label={`${person.frontmatter.name} on Twitter`}
             className="text-iudpr-muted hover:text-iudpr-accent transition-colors"
           >
             <TwitterIcon className="w-5 h-5" />
@@ -146,24 +133,24 @@ function PersonCard({
       <div className="group h-full bg-iudpr-surface rounded-2xl border border-iudpr-fg/10 p-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-iudpr-accent/30">
         <div className="w-20 h-20 rounded-full overflow-hidden mb-4 ring-1 ring-iudpr-fg/10 group-hover:ring-iudpr-accent/40 transition-all duration-300">
           <img
-            src={avatarUrl(person.photoSeed)}
-            alt={person.name}
+            src={avatarUrl(person.slug, person.frontmatter.photo)}
+            alt={person.frontmatter.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         </div>
         <h3 className="font-display text-base font-bold text-iudpr-fg">
-          {person.name}
+          {person.frontmatter.name}
         </h3>
-        {person.credentials && (
+        {person.frontmatter.credentials && (
           <p className="text-[11px] text-iudpr-muted uppercase tracking-wide mt-0.5">
-            {person.credentials}
+            {person.frontmatter.credentials}
           </p>
         )}
         <p className="text-xs text-iudpr-accent font-semibold uppercase tracking-wide mt-1.5">
-          {person.role}
+          {person.frontmatter.role}
         </p>
         <p className="text-sm text-iudpr-muted leading-relaxed mt-3">
-          {person.brief}
+          {person.frontmatter.brief}
         </p>
         <button
           type="button"
@@ -174,20 +161,20 @@ function PersonCard({
         </button>
         <div className="flex items-center gap-3 mt-4">
           <a
-            href={person.linkedin}
+            href={person.frontmatter.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${person.name} on LinkedIn`}
+            aria-label={`${person.frontmatter.name} on LinkedIn`}
             onClick={(e) => e.stopPropagation()}
             className="text-iudpr-muted hover:text-iudpr-accent transition-colors"
           >
             <LinkedinIcon className="w-4 h-4" />
           </a>
           <a
-            href={person.twitter}
+            href={person.frontmatter.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${person.name} on Twitter`}
+            aria-label={`${person.frontmatter.name} on Twitter`}
             onClick={(e) => e.stopPropagation()}
             className="text-iudpr-muted hover:text-iudpr-accent transition-colors"
           >
@@ -201,8 +188,6 @@ function PersonCard({
 
 export function TeamPage() {
   const [activePerson, setActivePerson] = useState<Person | null>(null);
-  const externalPeople = siteContent.team.people.filter(isExternal);
-  const internalPeople = siteContent.team.people.filter((p) => !isExternal(p));
 
   return (
     <section className="relative pt-32 pb-24 px-6 overflow-hidden">
@@ -248,9 +233,9 @@ export function TeamPage() {
 
         <GroupHeading>Board &amp; Advisors</GroupHeading>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {externalPeople.map((person, index) => (
+          {teamBoard.map((person, index) => (
             <PersonCard
-              key={person.name}
+              key={person.slug}
               person={person}
               index={index}
               onReadMore={setActivePerson}
@@ -260,9 +245,9 @@ export function TeamPage() {
 
         <GroupHeading>Research &amp; Admin Team</GroupHeading>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {internalPeople.map((person, index) => (
+          {teamStaff.map((person, index) => (
             <PersonCard
-              key={person.name}
+              key={person.slug}
               person={person}
               index={index}
               onReadMore={setActivePerson}

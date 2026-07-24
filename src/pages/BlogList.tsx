@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Clock } from "lucide-react";
-import { blogPosts, readingTime, type BlogFrontmatter } from "@/lib/content";
+import { blogPosts, readingTime, thumbnailUrl, type BlogFrontmatter } from "@/lib/content";
 import type { ContentEntry } from "@/lib/content";
 import { useReveal } from "@/hooks/useReveal";
 import { useTagFilter } from "@/hooks/useTagFilter";
@@ -39,7 +39,7 @@ function PostCard({
       >
         <div className="relative aspect-[4/3] overflow-hidden">
           <img
-            src={`https://picsum.photos/seed/${post.slug}/700/525`}
+            src={thumbnailUrl("blog", post.slug, post.frontmatter.image)}
             alt=""
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
