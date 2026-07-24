@@ -1,5 +1,6 @@
 ---
 name: Apil KC
+photo: Apil.jpg
 role: Director, Board of Directors
 linkedin: https://linkedin.com/in/apilkc
 twitter: https://twitter.com/apilkc
