@@ -4,9 +4,10 @@
 // headlines, descriptions, stats, testimonials, contact info.
 // Do not edit files in src/components/ unless you're a developer.
 //
-// Team members, projects, and blog posts are NOT edited here — each is its
-// own file: src/content/team/, src/content/projects/, src/content/blog/.
-// Read README-EDITING.md for how to add or edit those.
+// Team members, events, projects, and blog posts are NOT edited here — each
+// is its own file: src/content/team/, src/content/events/,
+// src/content/projects/, src/content/blog/. Read README-EDITING.md for how
+// to add or edit those.
 //
 // Just change the text between the quotes ("...") and save. Don't remove
 // commas, curly braces {}, or square brackets [].
@@ -25,6 +26,7 @@ export const siteContent = {
     links: [
       { label: "About", href: "#about" },
       { label: "Projects", href: "/projects" },
+      { label: "Events", href: "/events" },
       { label: "Our Team", href: "/team" },
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "#contact" },

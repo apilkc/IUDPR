@@ -1,7 +1,7 @@
-// Loads Markdown files from src/content/projects, src/content/blog, and
-// src/content/team. Each file needs a frontmatter block (between --- lines)
-// followed by the body text. See README-EDITING.md for how to add or edit
-// entries.
+// Loads Markdown files from src/content/projects, src/content/blog,
+// src/content/team, and src/content/events. Each file needs a frontmatter
+// block (between --- lines) followed by the body text. See
+// README-EDITING.md for how to add or edit entries.
 
 export interface FrontmatterBase {
   title: string;
@@ -23,6 +23,24 @@ export interface BlogFrontmatter extends FrontmatterBase {
   // Optional: filename of a photo placed in public/images/blog/.
   // Leave unset and a placeholder thumbnail is used instead.
   image?: string;
+}
+
+export interface EventFrontmatter extends FrontmatterBase {
+  tag: string;
+  venueType: "in-person" | "virtual" | "hybrid";
+  venue: string;
+  host: string;
+  // Optional: e.g. "10:00 AM – 4:00 PM NPT".
+  time?: string;
+  // Optional: filename of a poster placed in public/images/events/.
+  // Leave unset and a placeholder poster is used instead.
+  image?: string;
+  // Optional: shown on upcoming events with an RSVP/registration link.
+  registerUrl?: string;
+  // Optional: shown on past events once a recording is available.
+  recording?: string;
+  // Optional: shown on past events, a link to slides/notes/handouts.
+  notes?: string;
 }
 
 export interface ContentEntry<T> {
@@ -87,7 +105,7 @@ function placeholderSeed(slug: string): number {
 // Real thumbnail if `image` is set in frontmatter (file living in
 // public/images/<folder>/), otherwise a stable placeholder stock photo.
 export function thumbnailUrl(
-  folder: "projects" | "blog",
+  folder: "projects" | "blog" | "events",
   slug: string,
   image: string | undefined,
 ): string {
@@ -126,6 +144,39 @@ export function getProjectBySlug(slug: string) {
 
 export function getBlogPostBySlug(slug: string) {
   return blogPosts.find((entry) => entry.slug === slug);
+}
+
+const eventFiles = import.meta.glob("/src/content/events/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+export const events: ContentEntry<EventFrontmatter>[] =
+  loadEntries<EventFrontmatter>(eventFiles);
+
+export function getEventBySlug(slug: string) {
+  return events.find((entry) => entry.slug === slug);
+}
+
+// Whether an event is upcoming or past is computed from today's date, not a
+// manually-set field or folder — so an event moves itself from "upcoming" to
+// "past" automatically the day after it happens, with no editing required.
+export function isUpcomingEvent(entry: ContentEntry<EventFrontmatter>): boolean {
+  const today = new Date().toISOString().slice(0, 10);
+  return entry.frontmatter.date >= today;
+}
+
+// Soonest first.
+export function upcomingEvents(): ContentEntry<EventFrontmatter>[] {
+  return events
+    .filter(isUpcomingEvent)
+    .sort((a, b) => a.frontmatter.date.localeCompare(b.frontmatter.date));
+}
+
+// Most recent first (already the default sort order from loadEntries).
+export function pastEvents(): ContentEntry<EventFrontmatter>[] {
+  return events.filter((entry) => !isUpcomingEvent(entry));
 }
 
 export interface TeamFrontmatter {

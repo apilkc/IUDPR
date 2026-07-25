@@ -12,11 +12,12 @@ src/content/
   team/
     board-and-advisors/      ← one .md file per board member, patron, or advisor
     research-and-admin-team/ ← one .md file per staff member
+  events/                 ← one .md file per event (upcoming/past is automatic)
   projects/               ← one .md file per project
   blog/                   ← one .md file per blog post
 ```
 
-Three of these — team, projects, blog — work exactly the same way: **one person or post = one file.** To add someone or something new, add a file. To remove them, delete the file. Nothing else to touch.
+Four of these — team, events, projects, blog — work exactly the same way: **one person, event, or post = one file.** To add something new, add a file. To remove it, delete the file. Nothing else to touch.
 
 The only content edited in a single shared file is page-wide text (headline, stats, testimonials, contact details) — that's `src/content/site-content.ts`.
 
@@ -88,7 +89,36 @@ The longer biography shown in the "Read more" popup goes here, as plain text or 
 
 For a photo, see "Adding real photos" below — until then, everyone gets an auto-assigned placeholder headshot.
 
-## 3. Adding or editing a project
+## 3. Adding or editing an event
+
+Each event on the "Events" page is one Markdown file in `src/content/events/`. Whether it shows up under **Upcoming** or **Past** is worked out automatically from its `date` — nothing to move or flag by hand. The day after an event's date passes, it quietly moves itself to the Past section next time someone loads the page.
+
+To add a new event, create a file there, for example `src/content/events/my-new-event.md`, with this frontmatter:
+
+```md
+---
+title: Community Resilience Forum
+summary: A one-line description shown on the event card.
+date: 2026-09-12
+time: "10:00 AM – 4:00 PM NPT"
+venueType: in-person
+venue: IUDPR Office, Jhamsikhel, Lalitpur, Nepal
+host: Apil KC
+tag: Forum
+registerUrl: https://forms.gle/your-form
+---
+
+Full event description, agenda, or (for a past event) a write-up of how it went.
+```
+
+- `venueType` must be exactly `in-person`, `virtual`, or `hybrid` — it controls which icon and label shows on the card.
+- `registerUrl` is optional and only makes sense for **upcoming** events — it adds an "RSVP" button linking offsite (Google Form, Eventbrite, etc.). Leave it out if there's no separate registration step.
+- Once an event is in the past, add `recording: https://...` and/or `notes: https://...` (links to a YouTube video, a PDF of slides, whatever you have) — these show as "Watch recording" / "View notes" buttons. Both are optional; leave out whichever doesn't apply.
+- For a poster image instead of the placeholder, see "Adding real photos" below.
+
+To edit an event, open its file and change the text — including its `date`, if it needs to move. To remove one, delete its file.
+
+## 4. Adding or editing a project
 
 Each project on the "Projects" section of the homepage is one Markdown file in `src/content/projects/`. To add a new project:
 
@@ -99,22 +129,24 @@ Each project on the "Projects" section of the homepage is one Markdown file in `
 
 To edit an existing project, open its file and change the text. To remove a project, delete its file. For a real thumbnail photo instead of the placeholder, see "Adding real photos" below.
 
-## 4. Adding or editing a blog post
+## 5. Adding or editing a blog post
 
 Same idea, in `src/content/blog/`. Open `src/content/blog/how-to-add-a-blog-post.md` for a short example, or copy `src/content/blog/welcome-to-iudpr.md` as a starting template.
 
 ## Adding real photos
 
-Right now, nobody's photo or project thumbnail is a real uploaded image — they're all stand-in stock photos, auto-picked so each person/project consistently gets the same placeholder rather than a different random one every visit. That's why you won't find any photo files in the repo yet: **there aren't any, on purpose, until you add them.**
+Right now, nobody's photo, project thumbnail, or event poster is a real uploaded image — they're all stand-in stock photos, auto-picked so each entry consistently gets the same placeholder rather than a different random one every visit. That's why you won't find any photo files in the repo yet: **there aren't any, on purpose, until you add them.**
 
 To swap in a real photo:
 
 1. Add your image file to the matching folder in `public/images/`:
    - Team headshots → `public/images/team/`
+   - Event posters → `public/images/events/`
    - Project thumbnails → `public/images/projects/`
    - Blog thumbnails → `public/images/blog/`
 2. Reference just the filename (not the full path) in that entry's frontmatter:
    - Team member: add a `photo: jane-doe.jpg` line
+   - Event: add an `image: my-poster.jpg` line
    - Project: add an `image: my-photo.jpg` line
    - Blog post: add an `image: my-photo.jpg` line
 3. Save and commit both the image file and the frontmatter change together.
@@ -148,4 +180,4 @@ The site is already connected to Cloudflare-managed DNS at `iudpr.org` / `www.iu
 
 ## Questions
 
-If something looks broken after an edit to `site-content.ts`, the most common cause is a missing comma or bracket. Undo your last change and try again, or ask a developer to take a look. Markdown files in `src/content/team/`, `src/content/projects/`, and `src/content/blog/` are more forgiving since they're just text with a small frontmatter header.
+If something looks broken after an edit to `site-content.ts`, the most common cause is a missing comma or bracket. Undo your last change and try again, or ask a developer to take a look. Markdown files in `src/content/team/`, `src/content/events/`, `src/content/projects/`, and `src/content/blog/` are more forgiving since they're just text with a small frontmatter header.
