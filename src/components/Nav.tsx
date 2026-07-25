@@ -74,19 +74,19 @@ export function Nav() {
           </div>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6">
           {siteContent.nav.links.map((link) => (
             <Link
               key={link.href}
               to={toPath(link.href)}
-              className="relative text-sm font-medium uppercase tracking-wide text-iudpr-fg hover:text-iudpr-accent transition-colors after:content-[''] after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-iudpr-accent after:transition-transform after:duration-300 hover:after:scale-x-100"
+              className="relative whitespace-nowrap text-sm font-medium uppercase tracking-wide text-iudpr-fg hover:text-iudpr-accent transition-colors after:content-[''] after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-iudpr-accent after:transition-transform after:duration-300 hover:after:scale-x-100"
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-2">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
@@ -107,7 +107,7 @@ export function Nav() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
@@ -129,8 +129,8 @@ export function Nav() {
       </div>
 
       <div
-        className={`md:hidden overflow-hidden bg-iudpr-bg transition-[max-height] duration-300 ease-out ${
-          menuOpen ? "max-h-96" : "max-h-0"
+        className={`lg:hidden overflow-hidden bg-iudpr-bg transition-[max-height] duration-300 ease-out ${
+          menuOpen ? "max-h-[32rem]" : "max-h-0"
         }`}
       >
         <div className="flex flex-col gap-1 px-6 pb-6 pt-2">
